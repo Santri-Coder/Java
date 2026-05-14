@@ -1,3 +1,16 @@
+const symbols = {
+    banner: `
+  ▐▓█▀▀▀▀▀▀▀▀▀█▓▌  ▄▄▄▄▄
+  ▐▓█ꦗꦮ ꦱꦢꦪ   █▓▌  █▄▄▄█
+  ▐▓█ilmu jowo█▓▌  █▄▄▄█
+  ▐▓█▄▄▄▄▄▄▄▄▄█▓▌  █:███
+      ▄▄███▄▄      █████
+ ╔═════════════════════════════════════════╗
+ ║   Java script weton                     ║
+ ╚═════════════════════════════════════════╝
+    `
+};
+
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -36,7 +49,7 @@ function getHijriManual(date) {
 
 function getWetonOnly(date) {
     const dayIndex = date.getDay();
-    const baseDate = new Date(2000, 1, 19); 
+    const baseDate = new Date(2000, 1, 19);.
     const diffDays = Math.floor((date.getTime() - baseDate.getTime()) / (1000 * 3600 * 24));
     let pasaranIndex = (4 + (diffDays % 5 + 5) % 5) % 5;
     return `${dinoArray[dayIndex]} ${pasaranArray[pasaranIndex]}`;
@@ -64,7 +77,7 @@ function cariMendhak(geblagDate, tahunKe) {
 function hitungWeton(tgl, bln, thn) {
     const date = new Date(parseInt(thn), parseInt(bln) - 1, parseInt(tgl));
     const dayIndex = date.getDay();
-    const baseDate = new Date(2000, 1, 19); 
+    const baseDate = new Date(2000, 1, 19);.
     const diffDays = Math.floor((date.getTime() - baseDate.getTime()) / (1000 * 3600 * 24));
     let pasaranIndex = (4 + (diffDays % 5 + 5) % 5) % 5;
     const d = dinoArray[dayIndex];
@@ -89,7 +102,7 @@ function getJodoData(total) {
 function getPrimbonPitu(total) {
     const daftar = [
         { nama: "LEBU KATIUP ANGIN", watak: "Sering mengalami kesusahan, cita-cita sulit tercapai, sering pindah tempat." },
-        { nama: "WASESO SEGORO", watak: "Pemaaf, berwibawa, berwawasan luas, dan murah rezeki." },
+        { nama: "WASESO SEGORO", watak: "Pemaaf, berwibawa, berwawasan luas, and murah rezeki." },
         { nama: "TUNGGAK SEMI", watak: "Mudah mendapatkan rezeki dan keberuntungan selalu mengalir." },
         { nama: "SUMUR SINABA", watak: "Menjadi tempat pengungsian/bertanya, bijaksana, dan banyak ilmu." },
         { nama: "SATRIO WIBAWO", watak: "Selalu mendapatkan kemuliaan, dihormati, dan beruntung." },
@@ -98,7 +111,7 @@ function getPrimbonPitu(total) {
         { nama: "SANGGAR WARINGIN", watak: "Teduh, memberi perlindungan, berkembang, tenteram, dan bahagia." }
     ];
     let index = total % 7;
-    if (index === 0) index = 7; 
+    if (index === 0) index = 7;.
     return daftar[index];
 }
 
@@ -137,10 +150,11 @@ function getShio(y) {
 
 function menuUtama() {
     console.clear();
-    process.stdout.write(`${HIJAU}SUGENG RAWUH MONGGO PINARAK, TUAN\n`);
-    process.stdout.write(`MONGGO MILIH :\n`);
+    process.stdout.write(`${HIJAU}${symbols.banner}\n`);
+    process.stdout.write(`SUGENG RAWUH MONGGO PINARAK, TUAN\n`);
+    process.stdout.write(`\nMONGGO MILIH :\n`);
     process.stdout.write(`1. KINAWERUH ETUNGAN WETON\n2. KINAWERUH ETUNGAN PRIMBON\n3. KINAWERUH ETUNGAN JODO\n4. BUKU WETON\n5. BUKU ETUNGAN JODO\n6. ETUNGAN SELAMATAN & TAHLILAN\n7. HAUL TAUNAN\n8. ETUNGAN WETON, ZODIAK, SHIO\n9. METU\n10. PERINGATAN${RESET}\n`);
-    
+....
     rl.question(`\nMILIH NOMER PINTEN : `, (pilihan) => {
         if (pilihan === '1' || pilihan === '2') {
             process.stdout.write(`\n${PUTIH}ISI TANGGAL (conto 28/1/1999)${RESET}\n`);
@@ -249,33 +263,6 @@ function menuUtama() {
                     rl.question("TAHUN: ", (th) => {
                         rl.question("HAUL TAUN : ", (ht) => {
                             const dateSedo = new Date(parseInt(th), parseInt(w) - 1, parseInt(t));
-                            const hSedo = getHijriManual(dateSedo);
-                            let targetDate = new Date(parseInt(ht), 0, 1);
-                            let found = false;
-                            for (let i = 0; i < 400; i++) {
-                                let hTarget = getHijriManual(targetDate);
-                                if (hTarget.day === hSedo.day && hTarget.month === hSedo.month) { found = true; break; }
-                                targetDate.setDate(targetDate.getDate() + 1);
-                            }
-                            process.stdout.write(`\n${HIJAU}NIKI HASILE :\n`);
-                            process.stdout.write(`TANGGAL SEDO : ${PUTIH}${dateSedo.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase()}\n`);
-                            process.stdout.write(`${HIJAU}TAHUN HIJRIAH : ${PUTIH}${hSedo.full}\n`);
-                            process.stdout.write(`${HIJAU}TAHUN HAUL: ${PUTIH}${ht}\n`);
-                            if (found) {
-                                process.stdout.write(`${HIJAU}TANGGAL : ${PUTIH}${targetDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long' }).toUpperCase()}\n`);
-                                process.stdout.write(`${HIJAU}HIJRIAH : ${PUTIH}${getHijriManual(targetDate).full}${RESET}\n`);
-                            }
-                            rl.question(`\n${HIJAU}MBALIK MENU AWAL y/n : ${RESET}`, (ans) => { if (ans.toLowerCase() === 'y') menuUtama(); else process.exit(); });
-                        });
-                    });
-                });
-            });
-        } else if (pilihan === '8') {
-            process.stdout.write(`\n${PUTIH}ETUNGAN GABUNGAN WETON, ZODIAK, SHIO\nISI TANGGAL LAIR\n`);
-            rl.question("TANGGAL: ", (t) => {
-                rl.question("WULAN: ", (w) => {
-                    rl.question("TAUN: ", (th) => {
-                        const date = new Date(parseInt(th), parseInt(w) - 1, parseInt(t));
                         const resWeton = hitungWeton(t, w, th);
                         const resPrimbon = getPrimbonPitu(resWeton.total);
                         const resZodiak = getZodiak(parseInt(t), parseInt(w));
@@ -315,4 +302,4 @@ function menuUtama() {
     });
 }
 
-menuUtama();
+menuUtama();                            
